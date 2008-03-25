@@ -1,0 +1,18 @@
+--- #YAML:1.0
+name:                HTML-TagHelper
+version:             0.01
+abstract:            Generate HTML tags in an easy way
+license:             ~
+author:              
+    - Gitte Wange Olrik <gitte@olrik.dk>
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
+    Carp:                          0
+    Class::Accessor::Fast:         0
+    DateTime:                      0
+    HTML::Element:                 0
+    Test::More:                    0
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

@@ -1,5 +1,7 @@
 Revision history for HTML-TagHelper
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.02 2013-08-23
+ - new taghelpers like mojo-plugin-taghelpers
 
+0.01 2008-04-25
+ - First version, released on an unsuspecting world.

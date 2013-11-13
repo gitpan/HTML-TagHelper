@@ -4,7 +4,7 @@
       "Chenryn<rao.chenlin@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.72, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.72, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "unknown"
    ],
@@ -48,5 +48,5 @@
          "url" : "https://github.com/chenryn/HTML-TagHelper.git"
       }
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }

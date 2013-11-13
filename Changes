@@ -1,5 +1,8 @@
 Revision history for HTML-TagHelper
 
+0.03 2013-11-12
+ - useless carp
+
 0.02 2013-08-23
  - new taghelpers like mojo-plugin-taghelpers
 

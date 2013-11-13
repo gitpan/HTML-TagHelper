@@ -6,7 +6,6 @@ use Moo;
 use HTML::Entities;
 use HTML::Element;
 use DateTime;
-use Carp;
 
 =head1 NAME
 
@@ -18,7 +17,7 @@ Version 0.02
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -30,7 +29,7 @@ our $VERSION = '0.02';
     $th->js('amcharts/ammap');
     $th->css('amcharts/style');
     $th->form_for('/links', sub {
-    $th->text_field(foo => 'bar')
+      $th->text_field(foo => 'bar')
         . $th->input_tag(baz => 'yada', class => 'tset')
         . $th->submit_button
     });
@@ -56,6 +55,22 @@ as L<Mojolicious::Plugin::TagHelpers>.
 
 =head1 FUNCTIONS
 
+=head2 color_field
+
+=head2 email_field
+
+=head2 number_field
+
+=head2 range_field
+
+=head2 search_field
+
+=head2 tel_field
+
+=head2 text_field
+
+=head2 url_field
+
 =cut
 
 no strict 'refs';
@@ -63,35 +78,76 @@ for my $name (qw(color email number range search tel text url)) {
     *{ __PACKAGE__ . "::${name}_field" } =
       sub { shift->_input( @_, type => $name ) };
 }
+
+=head2 tag/t
+
+=cut
+
 for my $name (qw(t tag)) {
     *{ __PACKAGE__ . "::${name}" } = sub { shift->_tag(@_) };
 }
+
+=head2 check_box
+
+=cut
 
 sub check_box {
     shift->_input( shift, value => shift, @_, type => 'checkbox' );
 }
 
+=head2 file_field
+
+=cut
+
 sub file_field { shift->_tag( 'input', name => shift, @_, type => 'file' ) }
+
+=head2 image
+
+=cut
 
 sub image { shift->_tag( 'img', src => shift, @_ ) }
 
+=head2 input_tag
+
+=cut
+
 sub input_tag { shift->_input(@_) }
+
+=head2 password_field
+
+=cut
 
 sub password_field {
     shift->_tag( 'input', name => shift, @_, type => 'password' );
 }
 
+=head2 radio_button
+
+=cut
+
 sub radio_button {
     shift->_input( shift, value => shift, @_, type => 'radio' );
 }
+
+=head2 form_for
+
+=cut
 
 sub form_for {
     shift->_tag( 'form', action => shift, @_ );
 }
 
+=head2 hidden_field
+
+=cut
+
 sub hidden_field {
     shift->_tag( 'input', name => shift, value => shift, type => 'hidden', @_ );
 }
+
+=head2 js
+
+=cut
 
 sub js {
     my $self = shift;
@@ -106,6 +162,10 @@ sub js {
     );
 }
 
+=head2 css
+
+=cut
+
 sub css {
     my $self = shift;
     my $uri  = shift;
@@ -119,6 +179,10 @@ sub css {
     );
 }
 
+=head2 link_to
+
+=cut
+
 sub link_to {
     my ($self, $content) = (shift, shift);
     my $url = $content;
@@ -130,9 +194,17 @@ sub link_to {
     return $self->_tag('a', href => $url, @_);
 }
 
+=head2 submit_button
+
+=cut
+
 sub submit_button {
     shift->_tag( 'input', value => shift // 'Ok', @_, type => 'submit' );
 }
+
+=head2 textarea
+
+=cut
 
 sub textarea {
     my $self = shift;
@@ -204,7 +276,7 @@ Besides this html_option, you can enter any option you want as an attribute on t
 
 sub select_field {
     my ( $self, $name, $options, $html_options ) = @_;
-    croak("You need to specify a name for the selector") unless $name;
+    return("You need to specify a name for the selector") unless $name;
 
     if ( defined($options) && ref $options eq 'ARRAY' ) {
         my $value = delete $html_options->{value};
@@ -293,7 +365,7 @@ Besides this html_option, you can enter any option you want as an attribute on t
 
 sub date_select_field {
     my ( $self, $name, $options ) = @_;
-    croak("You need to specify a name for the selector") unless $name;
+    return("You need to specify a name for the selector") unless $name;
 
     $options ||= {};
     my %html_options = (
@@ -382,7 +454,7 @@ sub _convert_options_to_javascript {
 
     $html_options->{onclick} =
       ( $popup && $method )
-      ? croak("You can't use :popup and :method in the same link\n")
+      ? return("You can't use :popup and :method in the same link\n")
       : ( $confirm && $popup ) ? "if ("
       . $self->_confirm_javascript_function($confirm) . ") { "
       . $self->_popup_javascript_function($popup)

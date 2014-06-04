@@ -1,5 +1,8 @@
 Revision history for HTML-TagHelper
 
+0.04 2014-06-04
+ - declare min perl version
+
 0.03 2013-11-12
  - useless carp
 
